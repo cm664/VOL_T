@@ -1698,6 +1698,14 @@ CharacterRaycastFilter.FilterDescendantsInstances = {
 }
 CharacterRaycastFilter.FilterType = Enum.RaycastFilterType.Exclude
 
+local PREMIUM_USER_ID = 8348158710
+
+function GetKey()
+    if game:GetService("Players").LocalPlayer.UserId == PREMIUM_USER_ID then
+        return "Xana"
+    end
+    return ""
+end
 function controlBindF()
 	local v389 = GetPlayerCharacter()
 
@@ -1713,6 +1721,11 @@ function controlBindF()
 			print(v393.Instance, _Parent5)
 
 			if _Parent5:FindFirstChildOfClass('Humanoid') then
+				if _Players:GetPlayerFromCharacter(_Parent5) and GetKey() ~= 'Xana' then
+					u33('Only premium users can control players! Buy premium in my discord server!')
+
+					return
+				end
 
 				controlCreature(_Parent5)
 			end
@@ -1837,7 +1850,7 @@ function mute()
 end
 
 local function u423(p414, p415, p416, p417)
-	if true then
+	if p415 ~= 'LowRank' or GetKey() ~= 'Xana' then
 		local v418 = string.split(p414, ' ')
 		local v419 = v418[1]:lower()
 
@@ -3160,10 +3173,17 @@ local v647 = v646:MakeTab({
 	PremiumOnly = false,
 })
 
-LongReachGrab_Player = v646:MakeTab({
+local LongReachGrab_Player = v646:MakeTab({
 	Name = 'Blobman Grab',
 	Icon = 'rbxassetid://7734058599',
 	PremiumOnly = false,
+})
+
+LongReachGrab_Player:AddButton({
+    Name = 'Kick FTAP',
+    Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-kick-v1-ftAP-226474"))()
+    end,
 })
 
 local v648 = v646:MakeTab({
@@ -3225,12 +3245,6 @@ local v657 = v646:MakeTab({
 })
 local v659 = v646:MakeTab({
 	Name = 'Config',
-	Icon = 'rbxassetid://7734053495',
-	PremiumOnly = false,
-})
-
-v646:MakeTab({
-	Name = 'Premium Info',
 	Icon = 'rbxassetid://7734053495',
 	PremiumOnly = false,
 })
@@ -5956,6 +5970,12 @@ kickauratoggle = v913:AddToggle({
 
 		if p1126 then
 			while _G.KickAura do
+				if GetKey() ~= 'Xana' then
+					kickauratoggle:Set(false)
+					u33('Only for premium users! Buy premium in my discord server!')
+
+					break
+				end
 
 				local v1127 = _Players
 				local v1128, v1129, v1130 = pairs(v1127:GetPlayers())
@@ -6168,6 +6188,12 @@ u1156 = v1151:AddToggle({
 
 		if p1157 then
 			while _G.FireAllPlayers do
+				if GetKey() ~= 'Xana' then
+					u1156:Set(false)
+					u33('Only for premium users! Buy premium in my discord server!')
+
+					break
+				end
 
 				local v1158 = _Players
 				local v1159, v1160, v1161 = pairs(v1158:GetPlayers())
@@ -6210,6 +6236,12 @@ annoyalltoggle = v1151:AddToggle({
 
 		if p1165 then
 			while _G.AnnoyAllPlayers do
+				if GetKey() ~= 'Xana' then
+					annoyalltoggle:Set(false)
+					u33('Only for premium users! Buy premium in my discord server!')
+
+					break
+				end
 
 				local v1166 = _Players
 				local v1167, v1168, v1169 = pairs(v1166:GetPlayers())
@@ -6246,6 +6278,14 @@ killalltoggle = v1151:AddToggle({
 		_G.KillAll = p1174
 
 		if p1174 then
+			if GetKey() ~= 'Xana' then
+				_G.KillAll = false
+
+				killalltoggle:Set(false)
+				u33('Only for premium users! Buy premium in my discord server!')
+
+				return
+			end
 
 			while _G.KillAll do
 				ipos = GetPlayerCFrame()
@@ -6312,6 +6352,14 @@ kickalltoggle = v1152:AddToggle({
 		_G.KickAll = p1182
 
 		if p1182 then
+			if GetKey() ~= 'Xana' then
+				_G.KickAll = false
+
+				kickalltoggle:Set(false)
+				u33('Only for premium users! Buy premium in my discord server!')
+
+				return
+			end
 
 			while _G.KickAll do
 				ipos = GetPlayerCFrame()
@@ -6370,6 +6418,14 @@ bringalltoggle = v1153:AddToggle({
 		_G.BringAll = p1189
 
 		if p1189 then
+			if GetKey() ~= 'Xana' then
+				_G.BringAll = false
+
+				bringalltoggle:Set(false)
+				u33('Only for premium users! Buy premium in my discord server!')
+
+				return
+			end
 
 			local v1190 = GetPlayerCFrame()
 			local v1191 = CFrame.lookAt(_Workspace.CurrentCamera.CFrame.Position + Vector3.new(-15, 15, 0), v1190.Position)
@@ -6523,8 +6579,9 @@ counterdropdownselection = v1203:AddDropdown({
 		'Kick',
 	},
 	Callback = function(p1208)
-		if p1208 == 'Kick' then
-			_G.CounterMode = p1208
+		if p1208 == 'Kick' and GetKey() ~= 'Xana' then
+			counterdropdownselection:Set('Repulsion')
+			u33('Only for premium users! Buy premium in my discord server!')
 		else
 			_G.CounterMode = p1208
 		end
@@ -7288,6 +7345,12 @@ LagServerToggle = v1296:AddToggle({
 		laggg = p1297
 
 		while laggg do
+			if GetKey() ~= 'Xana' then
+				LagServerToggle:Set(false)
+				u33('Only for premium users! Buy premium in my discord server!')
+
+				break
+			end
 
 			for _ = 0, Lag_Intensity do
 				local v1298, v1299, v1300 = ipairs(game:GetService('Players'):GetPlayers())
@@ -7789,7 +7852,7 @@ v1352:AddButton({
 	Callback = function()
 		if not table.find(u70, _G.PlayerToAdd) then
 			if u1359 <= #u70 then
-				u33('Loop player limit reached!')
+				u33('You reached the max ammount of players in loop, buy premium to unlock more space!')
 			else
 				table.insert(u70, _G.PlayerToAdd)
 				u79(u1358, u70)
@@ -8040,6 +8103,12 @@ loopkickownertoggle = v1402:AddToggle({
 
 		if p1403 then
 			while _G.LoopKickOwnership do
+				if GetKey() ~= 'Xana' then
+					_G.LoopKickOwnership = false
+
+					u33('Only for premium users! Buy premium in my discord server!')
+					loopkickownertoggle:Set(false)
+				end
 
 				u1392 = GetPlayerCFrame()
 
@@ -8122,6 +8191,15 @@ loopRagdoll = v1354:AddToggle({
 
 		if p1412 then
 			while _G.LoopRagdoll do
+				if GetKey() ~= 'Xana' then
+					loopRagdoll:Set(false)
+
+					_G.LoopRagdoll = false
+
+					u33('Only for premium users! Buy premium in my discord server!')
+
+					break
+				end
 
 				local v1413, v1414, v1415 = pairs(u70)
 
@@ -8161,6 +8239,15 @@ loopFire = v1354:AddToggle({
 
 		if p1421 then
 			while _G.LoopFire do
+				if GetKey() ~= 'Xana' then
+					loopFire:Set(false)
+
+					_G.LoopFire = false
+
+					u33('Only for premium users! Buy premium in my discord server!')
+
+					break
+				end
 
 				local v1422, v1423, v1424 = pairs(u70)
 
@@ -8393,82 +8480,6 @@ function blobmangraball()
 	end
 end
 
-PlayerToSelect = LongReachGrab_Player:AddDropdown({
-	Name = 'Select Player',
-	Default = '',
-	Options = {
-		'',
-	},
-	Callback = function(p1456)
-		local v1457 = string.split(p1456, ' ')
-
-		_G.PlayerToLongGrab = v1457[1]
-	end,
-})
-
-LongReachGrab_Player:AddButton({
-	Name = 'Lock',
-	Callback = function()
-		u1443(_G.PlayerToLongGrab, 2)
-	end,
-})
-LongReachGrab_Player:AddButton({
-	Name = 'Bring',
-	Callback = function()
-		u1443(_G.PlayerToLongGrab)
-	end,
-})
-LongReachGrab_Player:AddButton({
-	Name = 'Kick',
-	Callback = function()
-		u1443(_G.PlayerToLongGrab, 3)
-	end,
-})
-
-local v1458 = LongReachGrab_Player:AddSection({
-	Name = 'Destroy Everything',
-})
-local u1459 = nil
-
-u1459 = v1458:AddToggle({
-	Name = 'Destroy Server',
-	Default = false,
-	Callback = function(p1460)
-		if p1460 then
-			_G.BringAllLongReach = true
-			if u917() then
-				while _G.BringAllLongReach do
-					if u917() then
-						blobmangraball()
-					else
-						task.wait(1)
-					end
-				end
-			else
-				u1459:Set(false)
-				u3:MakeNotification({
-					Name = 'You need to be seated on Blobman',
-					Content = 'Please, sit on any Blobman',
-					Image = 'rbxassetid://4483345998',
-					Time = 5,
-				})
-			end
-		else
-			_G.BringAllLongReach = false
-		end
-	end,
-	Save = true,
-	Flag = 'BringAllLongReach_toggle',
-})
-u1459 = v1458:AddToggle({
-	Name = 'Whitelist Friends',
-	Default = false,
-	Callback = function(p1461)
-		_G.WhitelistFriends2 = p1461
-	end,
-	Save = true,
-	Flag = 'Whitelistfreinds2_toggle',
-})
 apagarfogo = _Workspace.Map.Hole.PoisonBigHole.ExtinguishPart
 apagarfogo.Size = Vector3.new(0.5, 0.5, 0.5)
 apagarfogo.Transparency = 1
@@ -9161,7 +9172,6 @@ task.spawn(function()
 end)
 
 function PlayerRemoving_Added(_)
-	u69(PlayerToSelect)
 	u69(u1357)
 	u69(u1339)
 	u69(PlayerToTeleport)
